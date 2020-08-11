@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page 2</title>
+	<style>
+		.mt3{
+		margin-top : 20px;
+		}
+		
+		p{
+			font-size: 40px;
+			font-weight: bold;
+			color: #0b6775;
+		   	font-family: cursive;
+		}
+	</style>
+</head>
+
+<body><center>
+    <h1 class="mt3">Reading Text From Files</h1>
+	<label>Speed   :</label><input class="mt3" type="number" value="1000" min="1000" max="5000" step="100"><br/>
+	<label>Loop   :</label><input class="mt3" type="checkbox"><br/>
+	<button class="mt3" onclick="startRead()">
+		start read
+	</button>
+	<button class="mt3" onclick="stopRead()">
+		Stop read
+	</button>
+    <p class="mt3"></p>
+	
+	<center>
+    <script>
+		var text ;
+		var lines;
+        var p = document.getElementsByTagName("p");
+        window.onload = function() {
+            //2 : In the page2.html, complete the JavaScript code such that you get the value from
+            //    the localStorage and then show it in the <p> tag on the page. 
+            text = localStorage.getItem("OTP");
+        }
+		var stopReadScript;
+		function startRead(){
+			var speed = parseInt(document.querySelector("input[type='number']").value);
+			var loop = document.querySelector("input[type='checkbox']");
+			var i =0;
+			 lines = text.split("\n");
+			  stopReadScript = setInterval(()=>{
+			  console.log(i);
+			  console.log(lines[i])
+			  p[0].innerText = lines[i]
+			  i++;
+			  if(i == lines.length){
+				i=0;
+				
+				if(!loop.checked){
+					clearInterval(stopReadScript);
+				}
+			  }
+			  },speed)
+		}
+		
+		
+		function stopRead(){
+
+			clearInterval(stopReadScript);
+
+		}
+		
+    </script>
+</body>
+
+</html>
