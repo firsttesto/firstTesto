@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS Challenge</title>
+    <style>
+        .wrapper {
+            text-align: center;
+        }
+        
+        .form {
+            background-color: #0074D9;
+            width: 500px;
+            height: 100px;
+            display: inline-block;
+            margin-top: 100px;
+        }
+        
+        form label {
+            font-size: 30px;
+            color: #fff;
+            margin-bottom: 20px;
+            display: block;
+        }
+        
+        #btn {
+            background-color: #fff;
+            width: 100px;
+        }
+        
+        #file {
+            color: #fff;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrapper">
+        <div class="form">
+            <form name="submitFile">
+                <label for="file">Please Upload the Text File</label>
+                <input type="file" name="file" id="file" />
+                <input type="button" name="btn" id="btn" value="Upload" onclick="">
+            </form>
+        </div>
+    </div>
+    <script>
+        var btnUpload = document.getElementById("btn");
+        var fileUpload = document.getElementById("file");
+        var contents = "";
+
+        //1.c : If a file is uploaded, then you need to use FileReader Object in JavaScript to read the contents of the file
+        fileUpload.addEventListener("change", function(evt) {
+            var file = evt.target.files[0];
+            if (file) {
+                var read = new FileReader();
+                read.onload = function(e) {
+                    contents = e.target.result;
+                }
+                read.readAsText(file);
+            }
+        });
+
+        // 1.a : a.	Listen to the Upload button and attach an event listener 
+        btnUpload.addEventListener("click", function() {
+            //1.b :	Check if a file is not uploaded and show an alert Message “No File Selected! Please Select a File to Continue” 
+            if (fileUpload.value == "") {
+                alert("No File Selected! Please Select a File to Continue");
+            } else {
+                //1.d : Store the contents of the file in a LocalStorage (provided by HTML5 Web Storage API).
+                localStorage.setItem("OTP", contents);
+                //1.e : Then redirect to the other HTML page from JavaScript which is page2.html 
+                window.location.replace("page2.html");
+            }
+        });
+    </script>
+</body>
+
+</html>
